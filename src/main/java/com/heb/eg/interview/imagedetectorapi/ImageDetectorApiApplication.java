@@ -14,12 +14,12 @@ public class ImageDetectorApiApplication {
 		SpringApplication.run(ImageDetectorApiApplication.class, args);
 	}
 
-	@Bean
+	/*@Bean
 	public ApplicationRunner dataLoader(ImageRepository repo) {
 		return args -> {
 			repo.save(new Image(null, "C:/Users/emgar/Downloads/single5x7instructionsjpg.jpg", 'F', "Picture for wedding event", ""));
 			repo.save(new Image(null, "C:/Users/emgar/OneDrive/Desktop/background.jpg", 'F', "Picture for background", "dog,cat"));
 		};
-	}
+	}*/
 
 }

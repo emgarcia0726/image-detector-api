@@ -1,6 +1,9 @@
 package com.heb.eg.interview.imagedetectorapi.service.exception;
 
-public class ServiceMissingImageException extends Exception{
+/**
+ * This exception is thrown from the service layer when an image is unable to be found from the database.
+ */
+public class ServiceMissingImageException extends ServiceException{
     public ServiceMissingImageException(final String msg){
         super(msg);
     }

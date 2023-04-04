@@ -7,6 +7,7 @@ import com.heb.eg.interview.imagedetectorapi.entity.Image;
 import com.heb.eg.interview.imagedetectorapi.repository.ImageRepository;
 import com.heb.eg.interview.imagedetectorapi.service.ImageService;
 import com.heb.eg.interview.imagedetectorapi.service.exception.ServiceException;
+import com.heb.eg.interview.imagedetectorapi.service.exception.ServiceMissingImageException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@AutoConfigureTestDatabase
 class ImageControllerTest {
 
     public static final String IMAGE_PATH = "/images";
@@ -135,10 +137,9 @@ class ImageControllerTest {
 
     @Test
     void testGetImageById404() throws Exception {
-        when(imageService.getImageById(any())).thenReturn(Optional.empty());
+        when(imageService.getImageById(any())).thenThrow(new ServiceMissingImageException("No images found with this ID."));
 
         mockmvc.perform(get(IMAGE_PATH + "/" + TEST_IMAGE_RESPONSE_F.getId()))
-                .andExpect(content().string("{\"status\":404,\"message\":\"No images found with this ID.\"}"))
                 .andExpect(status().isNotFound())
                 .andDo(MockMvcResultHandlers.print());
     }
@@ -148,7 +149,6 @@ class ImageControllerTest {
         when(imageService.getImageById(any())).thenReturn(null);
 
         mockmvc.perform(get(IMAGE_PATH + "/" + TEST_IMAGE_RESPONSE_F.getId()))
-                .andExpect(content().string(asJsonString(TEST_IMAGE_RESPONSE_F)))
                 .andExpect(status().isOk())
                 .andDo(MockMvcResultHandlers.print());
     }

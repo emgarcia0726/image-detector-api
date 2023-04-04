@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "1ac33137-748b-4632-a548-43f7647df0c6",
+		"name": "Image API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "New Image (with label)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"location\": \"https://publish.purewow.net/wp-content/uploads/sites/2/2023/03/swift-universal.jpg?fit=2050%2C1100\",\r\n    \"enableDetection\": \"T\",\r\n    \"label\": \"Taylor Swift Eras Enchanted\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/images",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"images"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Image (without label)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"location\": \"https://publish.purewow.net/wp-content/uploads/sites/2/2023/03/swift-universal.jpg?fit=2050%2C1100\",\r\n    \"enableDetection\": \"F\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/images",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"images"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Images",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"imageId\", jsonData[0].id);\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/images",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"images"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Images by Objects",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/images?objects=\"dinner\"",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"images"
+					],
+					"query": [
+						{
+							"key": "objects",
+							"value": "\"dinner\""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Images by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/images/{{imageId}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"images",
+						"{{imageId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "domain",
+			"value": "localhost:8080",
+			"type": "default"
+		},
+		{
+			"key": "imageId",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

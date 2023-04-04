@@ -8,5 +8,12 @@ import java.util.UUID;
 
 public interface ImageRepository extends JpaRepository<Image, UUID> {
 
+    /**
+     * A customized added method to search by the passed in objects to see if the image's objects detected contains
+     * any of the passed in objects.
+     *
+     * @param objects
+     * @return list of images that has the objects detected
+     */
     List<Image> findByObjectsDetectedContains(String objects);
 }

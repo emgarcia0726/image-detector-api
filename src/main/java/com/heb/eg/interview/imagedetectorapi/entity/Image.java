@@ -27,7 +27,8 @@ public class Image {
     @Column
     private String label;
 
-    @Column(nullable = false)
+    @Column
     private String objectsDetected;
+
 
 }

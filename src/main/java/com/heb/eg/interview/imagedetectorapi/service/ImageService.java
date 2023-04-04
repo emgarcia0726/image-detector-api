@@ -16,7 +16,7 @@ public interface ImageService {
 
     Iterable<Image> getImagesByObjectsDetected(String objects) throws ServiceException;
 
-    Optional<Image> getImageById(UUID imageId);
+    Optional<Image> getImageById(String imageId) throws ServiceException;
 
-    Image createImage(CreateImageDto createImageDto);
+    Image createImage(CreateImageDto createImageDto) throws ServiceException;
 }
